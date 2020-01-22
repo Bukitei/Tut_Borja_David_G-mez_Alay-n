@@ -13,7 +13,6 @@ namespace Tut_Borja_David_Gómez_Alayón
 {
     public partial class Form1 : Form
     {
-        
         String NewPath = null;
         public Form1()
         {
@@ -49,61 +48,182 @@ namespace Tut_Borja_David_Gómez_Alayón
 
             }
 
+            lstFilePick.Items.Clear();
             string sourceDirectory = NewPath;
-
-            var txtFiles = Directory.EnumerateFiles(sourceDirectory);
-            foreach (string currentFile in txtFiles)
+            try
             {
-                string fileName = currentFile.Substring(sourceDirectory.Length + 1);
-                lstFilePick.Items.Add(currentFile);
+                var txtFiles = Directory.EnumerateFiles(sourceDirectory);
+                var txtDirectories = Directory.EnumerateDirectories(sourceDirectory);
 
+                foreach (string currentFile in txtFiles)
+                {
+                    string fileName = currentFile.Substring(sourceDirectory.Length + 1);
+                    lstFilePick.Items.Add(currentFile);
+
+                }
+
+                foreach (string currentDirectory in txtDirectories)
+                {
+                    string fileName = currentDirectory.Substring(sourceDirectory.Length + 1);
+                    lstFilePick.Items.Add(currentDirectory);
+
+                }
             }
-
-
+            catch (Exception f)
+            {
+                MessageBox.Show("Comprueba que el fichero o directorio existe y vuelvelo a intentar.");
+            }
 
         }
 
         private void btnExamine_Click(object sender, EventArgs e)
         {
-            FileInfo thisFile = new FileInfo(lstFilePick.SelectedItem.ToString());
-
-            string texto = "Los atributos del fichero " + lstFilePick.SelectedItem.ToString() + " son : ";
-            if (chkFileLength.Checked)
+            if (checkIfFolder())
             {
-                texto = texto + " La Longitud del fichero es : " +
-               thisFile.Length.ToString();
+                DirectoryInfo thisDirectory = new DirectoryInfo(lstFilePick.SelectedItem.ToString());
+
+                string texto = "Los atributos del directorio " + lstFilePick.SelectedItem.ToString() + " son : ";
+
+                texto = texto + "La creación del directorio se efectuó el: " + thisDirectory.CreationTime.ToString();
+
+                texto = texto + " última modificación fue: " + thisDirectory.LastAccessTime.ToString();
+
+                if (chkSave.Checked)
+                {
+                    // si no existe el fichero lo crea y si existe sobreescribe el contenido
+
+                    File.WriteAllText(NewPath + "/log.txt", texto);
+
+                }
+
+                MessageBox.Show(texto);
             }
-            if (chkLastAccess.Checked)
+            else
             {
-                texto = texto + " última modificación fue : " +
-               thisFile.LastAccessTime.ToString();
+                FileInfo thisFile = new FileInfo(lstFilePick.SelectedItem.ToString());
+
+                string texto = "Los atributos del fichero " + lstFilePick.SelectedItem.ToString() + " son : ";
+                if (chkFileLength.Checked)
+                {
+                    texto = texto + " La Longitud del fichero es : " +
+                   thisFile.Length.ToString();
+                }
+                if (chkLastAccess.Checked)
+                {
+                    texto = texto + " última modificación fue : " +
+                   thisFile.LastAccessTime.ToString();
+                }
+
+                if (chkSave.Checked)
+                {
+                    // si no existe el fichero lo crea y si existe sobreescribe el contenido
+
+                    File.WriteAllText(NewPath + "/log.txt", texto);
+
+                }
+
+                MessageBox.Show(texto);
             }
-
-            if (chkSave.Checked)
-            {
-                // si no existe el fichero lo crea y si existe sobreescribe el contenido
-
-                File.WriteAllText(NewPath + "/log.txt", texto);
-
-            }
-
-            MessageBox.Show(texto);
+            
 
 
         }
 
-        private void dltFolder_Click(object sender, EventArgs e)
+
+        private Boolean checkIfFolder()
         {
-            
             FileInfo thisFile = new FileInfo(lstFilePick.SelectedItem.ToString());
 
-            if(thisFile.Attributes.HasFlag(FileAttributes.Directory)){
+            if (thisFile.Attributes.HasFlag(FileAttributes.Directory))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void dltFolder_Click(object sender, EventArgs e)
+        {
+            if (checkIfFolder())
+            {
+                DialogResult result = MessageBox.Show("¿quieres eliminarlo junto a todo su contenido?", "Estás eliminando un directorio", MessageBoxButtons.YesNo);
+
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                    {
+                            try
+                            {
+                                Directory.Delete(lstFilePick.SelectedItem.ToString(), true);
+                                MessageBox.Show("Ha sido eliminado con éxito");
+                            }
+                            catch (Exception f)
+                            {
+                                MessageBox.Show("Ha habido un error");
+                            }
+                            
+                            break;
+                    }
+                    case DialogResult.No:
+                    {
+                            MessageBox.Show("No ha sido eliminado");
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show("¿seguro/a de que quieres eliminarlo?", "Estás eliminando un fichero", MessageBoxButtons.YesNo);
+
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        {
+                            try
+                            {
+                                File.Delete(lstFilePick.SelectedItem.ToString());
+                                MessageBox.Show("Ha sido eliminado con éxito");
+                            }
+                            catch (Exception f)
+                            {
+                                MessageBox.Show("Ha habido un error, comprueba que no estás usando el fichero");
+                            }
+
+                            break;
+                        }
+                    case DialogResult.No:
+                        {
+                            MessageBox.Show("No ha sido eliminado");
+                            break;
+                        }
+                }
+            }
+        }
+
+        private void change_Click(object sender, EventArgs e)
+        {
+            if (checkIfFolder())
+            {
+                txtDirectory.Text = lstFilePick.SelectedItem.ToString();
+                
 
             }
             else
             {
-
+                MessageBox.Show("Selecciona un directorio y no un fichero para realizar esta operación.");
             }
+        }
+
+        private void modifyFolder_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void createFolder_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

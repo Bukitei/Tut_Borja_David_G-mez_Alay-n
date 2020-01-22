@@ -39,10 +39,7 @@
             this.separatorFolder = new System.Windows.Forms.Label();
             this.modifyFolder = new System.Windows.Forms.Button();
             this.createFolder = new System.Windows.Forms.Button();
-            this.Ficheros = new System.Windows.Forms.Label();
-            this.createFile = new System.Windows.Forms.Button();
-            this.modifyFile = new System.Windows.Forms.Button();
-            this.dltFile = new System.Windows.Forms.Button();
+            this.change = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtDirectory
@@ -144,6 +141,7 @@
             this.modifyFolder.TabIndex = 9;
             this.modifyFolder.Text = "Modificar";
             this.modifyFolder.UseVisualStyleBackColor = true;
+            this.modifyFolder.Click += new System.EventHandler(this.modifyFolder_Click);
             // 
             // createFolder
             // 
@@ -153,52 +151,24 @@
             this.createFolder.TabIndex = 10;
             this.createFolder.Text = "Crear";
             this.createFolder.UseVisualStyleBackColor = true;
+            this.createFolder.Click += new System.EventHandler(this.createFolder_Click);
             // 
-            // Ficheros
+            // change
             // 
-            this.Ficheros.AutoSize = true;
-            this.Ficheros.Location = new System.Drawing.Point(367, 325);
-            this.Ficheros.Name = "Ficheros";
-            this.Ficheros.Size = new System.Drawing.Size(47, 13);
-            this.Ficheros.TabIndex = 11;
-            this.Ficheros.Text = "Ficheros";
-            // 
-            // createFile
-            // 
-            this.createFile.Location = new System.Drawing.Point(181, 359);
-            this.createFile.Name = "createFile";
-            this.createFile.Size = new System.Drawing.Size(75, 23);
-            this.createFile.TabIndex = 14;
-            this.createFile.Text = "Crear";
-            this.createFile.UseVisualStyleBackColor = true;
-            // 
-            // modifyFile
-            // 
-            this.modifyFile.Location = new System.Drawing.Point(262, 359);
-            this.modifyFile.Name = "modifyFile";
-            this.modifyFile.Size = new System.Drawing.Size(75, 23);
-            this.modifyFile.TabIndex = 13;
-            this.modifyFile.Text = "Modificar";
-            this.modifyFile.UseVisualStyleBackColor = true;
-            // 
-            // dltFile
-            // 
-            this.dltFile.Location = new System.Drawing.Point(343, 359);
-            this.dltFile.Name = "dltFile";
-            this.dltFile.Size = new System.Drawing.Size(75, 23);
-            this.dltFile.TabIndex = 12;
-            this.dltFile.Text = "Eliminar";
-            this.dltFile.UseVisualStyleBackColor = true;
+            this.change.Location = new System.Drawing.Point(262, 240);
+            this.change.Name = "change";
+            this.change.Size = new System.Drawing.Size(75, 23);
+            this.change.TabIndex = 11;
+            this.change.Text = "Cambiar ";
+            this.change.UseVisualStyleBackColor = true;
+            this.change.Click += new System.EventHandler(this.change_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.createFile);
-            this.Controls.Add(this.modifyFile);
-            this.Controls.Add(this.dltFile);
-            this.Controls.Add(this.Ficheros);
+            this.Controls.Add(this.change);
             this.Controls.Add(this.createFolder);
             this.Controls.Add(this.modifyFolder);
             this.Controls.Add(this.separatorFolder);
@@ -231,10 +201,7 @@
         private System.Windows.Forms.Label separatorFolder;
         private System.Windows.Forms.Button modifyFolder;
         private System.Windows.Forms.Button createFolder;
-        private System.Windows.Forms.Label Ficheros;
-        private System.Windows.Forms.Button createFile;
-        private System.Windows.Forms.Button modifyFile;
-        private System.Windows.Forms.Button dltFile;
+        private System.Windows.Forms.Button change;
     }
 }
 
