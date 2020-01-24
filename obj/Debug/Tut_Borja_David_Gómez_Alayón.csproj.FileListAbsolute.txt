@@ -7,3 +7,4 @@ D:\Users\Alumno\source\repos\Tut_Borja_David_Gómez_Alayón\obj\Debug\Tut_Borja_
 D:\Users\Alumno\source\repos\Tut_Borja_David_Gómez_Alayón\obj\Debug\Tut_Borja_David_Gómez_Alayón.csproj.GenerateResource.cache
 D:\Users\Alumno\source\repos\Tut_Borja_David_Gómez_Alayón\obj\Debug\Tut_Borja_David_Gómez_Alayón.exe
 D:\Users\Alumno\source\repos\Tut_Borja_David_Gómez_Alayón\obj\Debug\Tut_Borja_David_Gómez_Alayón.pdb
+D:\Users\Alumno\source\repos\Tut_Borja_David_Gómez_Alayón\obj\Debug\Tut_Borja_David_Gómez_Alayón.Form2.resources
